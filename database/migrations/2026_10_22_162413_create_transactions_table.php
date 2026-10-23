@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("kopdes_id")->constrained();
+            $table->string("name");
+            $table->date("transaction_date");
             $table->timestamps();
         });
     }

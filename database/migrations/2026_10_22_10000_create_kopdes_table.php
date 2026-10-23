@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('kopdes', function (Blueprint $table) {
             $table->id();
+            $table->string("name");
+            $table->string("province");
+            $table->string("city");
+            $table->string("address");
             $table->timestamps();
         });
     }
