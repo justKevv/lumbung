@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-
         Kopdes::factory()->create([
             'name' => 'Kopdes Sukun',
             'province' => "Jawa Timur",
@@ -29,7 +28,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test1',
             'email' => 'test@example.com',
-            'password' => 'test123',
+            'password' => 'Test1234',
             'role' => 'admin',
         ]);
     }
