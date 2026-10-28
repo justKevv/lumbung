@@ -19,8 +19,9 @@ class KopdesController extends Controller
     {
         $provinces = Province::all();
         $kopdes = Kopdes::all();
+        $fields = (new Kopdes)->getFillable();
 
-        return view('kopdes', compact('provinces', 'kopdes')); 
+        return view('kopdes', compact('provinces', 'kopdes', 'fields')); 
     }
 
     /**
