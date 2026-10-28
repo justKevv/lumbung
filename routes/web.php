@@ -13,7 +13,9 @@ Route::middleware(['auth'])->group(function() {
         })->name('transaction');   
     });
 
-    Route::get('/kopdes', function () {
-        return view('kopdes');
-    })->name('kopdes')->can('manage-super-admin');
+    Route::middleware('can:manage-super-admin')->group(function () {
+        Route::get('/kopdes', function () {
+            return view('kopdes');
+        })->name('kopdes');
+    });
 });
