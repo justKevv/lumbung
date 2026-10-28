@@ -45,7 +45,7 @@ class KopdesController extends Controller
             'address' => $request->address
         ]);
 
-        return redirect()->route('kopdes');
+        return redirect()->route('kopdes.index');
     }
 
     /**
@@ -78,7 +78,7 @@ class KopdesController extends Controller
             'address' => $request->address
         ]);
 
-        return redirect()->route('kopdes');
+        return redirect()->route('kopdes.index');
     }
 
     /**
@@ -88,7 +88,7 @@ class KopdesController extends Controller
     {
         $kopdes->delete();
 
-        return redirect()->route('kopdes');
+        return redirect()->route('kopdes.index');
     }
 
     public function regencies(Province $province)
