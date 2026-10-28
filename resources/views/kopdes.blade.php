@@ -7,43 +7,50 @@
                 Add
             </button>
         </div>
-        <table class="table">
-            <!-- head -->
-            <thead>
-                <tr>
-                <th></th>
-                <th>Nama</th>
-                <th>Provinsi</th>
-                <th>Kota</th>
-                <th>Kecamatan</th>
-                <th>Kelurahan</th>
-                <th>Alamat</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    @foreach ($kopdes as $kp)
-                        <th>{{ $loop->iteration }}</th>
-                        <td>{{ $kp->name }}</td>
-                        <td>{{ $kp->province }}</td>
-                        <td>{{ $kp->city }}</td>
-                        <td>{{ $kp->kecamatan }}</td>
-                        <td>{{ $kp->kelurahan }}</td>
-                        <td>{{ $kp->address }}</td>
-                        <td>
-                            <button class="btn btn-ghost" popovertarget="popover-1" style="anchor-name:--anchor-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis preview-icon"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
-                            </button>
-                            <ul class="dropdown dropdown-end menu w-52 rounded-box bg-base-100 shadow-sm"
-                              popover id="popover-1" style="position-anchor:--anchor-1">
-                              <li><a><svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil preview-icon"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg> Edit</a></li>
-                              <li><button onclick="delete_kopdes_{{ $kp->id }}.showModal()"><svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash preview-icon"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete</button></li>
-                            </ul>
-                        </td>
-                    @endforeach
-                </tr>
-            </tbody>
-        </table>
+        @if ($kopdes->isEmpty())
+            <div class="flex flex-col gap-3 p-4 justify-center items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block stroke-neutral-300 rounded-full border-5 p-4 border-neutral-200 items-center size-30" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shredder preview-icon"><path d="M4 13V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v5"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 22v-5"/><path d="M14 19v-2"/><path d="M18 20v-3"/><path d="M2 13h20"/><path d="M6 20v-3"/></svg>
+                <h1 class="text-xl font-semibold text-neutral-300">No data available right now :(</h1>
+            </div>
+        @else
+            <table class="table">
+                <!-- head -->
+                <thead>
+                    <tr>
+                    <th></th>
+                    <th>Nama</th>
+                    <th>Provinsi</th>
+                    <th>Kota</th>
+                    <th>Kecamatan</th>
+                    <th>Kelurahan</th>
+                    <th>Alamat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                            @foreach ($kopdes as $kp)
+                                <th>{{ $loop->iteration }}</th>
+                                <td>{{ $kp->name }}</td>
+                                <td>{{ $kp->province }}</td>
+                                <td>{{ $kp->city }}</td>
+                                <td>{{ $kp->kecamatan }}</td>
+                                <td>{{ $kp->kelurahan }}</td>
+                                <td>{{ $kp->address }}</td>
+                                <td>
+                                    <button class="btn btn-ghost" popovertarget="popover-1" style="anchor-name:--anchor-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis preview-icon"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                                    </button>
+                                    <ul class="dropdown dropdown-end menu w-52 rounded-box bg-base-100 shadow-sm"
+                                      popover id="popover-1" style="position-anchor:--anchor-1">
+                                      <li><a><svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil preview-icon"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg> Edit</a></li>
+                                      <li><button onclick="delete_kopdes_{{ $kp->id }}.showModal()"><svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash preview-icon"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete</button></li>
+                                    </ul>
+                                </td>
+                            @endforeach
+                    </tr>
+                </tbody>
+            </table>
+        @endif
     </x-card>
     <dialog id="kopdes_add" class="modal modal-bottom sm:modal-middle">
         <div class="modal-box">
@@ -95,14 +102,16 @@
     @foreach ($kopdes as $kd)
         <dialog id="delete_kopdes_{{ $kd->id }}" class="modal modal-bottom sm:modal-middle">
           <div class="modal-box">
-              <h3 class="text-lg font-bold">Delete {{ $kp->name }}?</h3>
+              <h3 class="text-lg font-bold">Delete {{ $kd->name }}?</h3>
               <p class="py-4">This action is not reversible!</p>
             <div class="modal-action">
                 <form method="dialog">
                     <button class="btn">Cancel</button>    
                 </form>
-                <form method="POST" action="{{ route('logout') }}">
-                    <button class="btn btn-error"><svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash preview-icon"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete</button>
+                <form method="POST" action="{{ route('kopdes.delete', $kd) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-error"><svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash preview-icon"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete</button>
                 </form>
             </div>
           </div>

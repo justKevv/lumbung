@@ -77,7 +77,9 @@ class KopdesController extends Controller
      */
     public function destroy(Kopdes $kopdes)
     {
-        //
+        $kopdes->delete();
+
+        return redirect()->route('kopdes');
     }
 
     public function regencies(Province $province)
