@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KopdesController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function() {
@@ -14,8 +15,14 @@ Route::middleware(['auth'])->group(function() {
     });
 
     Route::middleware('can:manage-super-admin')->group(function () {
-        Route::get('/kopdes', function () {
-            return view('kopdes');
-        })->name('kopdes');
+        Route::get('/kopdes', [KopdesController::class, 'index'])->name('kopdes');
+        Route::get('/kopdes/provinces/{province}/regencies', [KopdesController::class, 'regencies'])
+            ->name('kopdes.regencies');
+            Route::get('/kopdes/regencies/{regency}/districts', [KopdesController::class, 'districts'])
+                ->name('kopdes.districts');
+            Route::get('/kopdes/districts/{district}/villages', [KopdesController::class, 'villages'])
+                ->name('kopdes.villages');
+
+
     });
 });

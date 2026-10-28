@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreKopdesRequest;
 use App\Http\Requests\UpdateKopdesRequest;
 use App\Models\Kopdes;
+use Creasi\Nusa\Models\District;
+use Creasi\Nusa\Models\Province;
+use Creasi\Nusa\Models\Regency;
+use Creasi\Nusa\Models\Village;
 
 class KopdesController extends Controller
 {
@@ -13,7 +17,9 @@ class KopdesController extends Controller
      */
     public function index()
     {
-        //
+        $provinces = Province::all();
+
+        return view('kopdes', ['provinces' => $provinces]); 
     }
 
     /**
@@ -62,5 +68,27 @@ class KopdesController extends Controller
     public function destroy(Kopdes $kopdes)
     {
         //
+    }
+
+    public function regencies(Province $province)
+    {
+        return Regency::where('province_code', $province->code)
+            ->orderBy('name')
+            ->get(['code', 'name']);
+    }
+
+    
+    public function districts(Regency $regency)
+    {
+        return District::where('regency_code', $regency->code)
+            ->orderBy('name')
+            ->get(['code', 'name']);
+    }
+    
+    public function villages(District $district)
+    {
+        return Village::where('district_code', $district->code)
+            ->orderBy('name')
+            ->get(['code', 'name', 'postal_code']);
     }
 }
