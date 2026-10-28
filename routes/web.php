@@ -24,5 +24,6 @@ Route::middleware(['auth'])->group(function() {
                 ->name('kopdes.villages');
 
 
+        Route::post('/kopdes/store', [KopdesController::class, 'store'])->name('kopdes.store');
     });
 });

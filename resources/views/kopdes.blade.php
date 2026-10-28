@@ -48,38 +48,39 @@
     </x-card>
     <dialog id="kopdes_add" class="modal modal-bottom sm:modal-middle">
         <div class="modal-box">
-            <form action="">
+            <form method="POST" action="{{ route('kopdes.store') }}">
+                @csrf
                 <fieldset class="fieldset w-full bg-base-100 border-base-300 rounded-box border p-4">
                   <legend class="fieldset-legend">Kopdes Baru</legend>
                 
-                  <label class="label">Name</label>
-                  <input type="text" class="input w-full" placeholder="Kopdes A" />
+                  <label class="label">Nama</label>
+                  <input type="text" name="name" class="input w-full" placeholder="Kopdes A" />
 
-                  <label class="label">Province</label>
-                  <select id="province" class="select w-full">
+                  <label class="label">Provinsi</label>
+                  <select id="province" name="province" class="select w-full">
                       <option value="" disabled selected>Pilih Provinsi</option>
                       @foreach ($provinces as $province)
                           <option value="{{ $province->name }}" data-code="{{ $province->code }}">{{ $province->name }}</option>
                       @endforeach
                   </select>
                   
-                  <label class="label">City</label>
-                  <select id="regency" class="select w-full" disabled>
+                  <label class="label" name="regency">Kota</label>
+                  <select id="regency" name="city" class="select w-full" disabled>
                       <option value="" disabled selected>Pilih Kota/Kabupaten</option>
                   </select>
                   
-                  <label class="label">District</label>
-                  <select id="district" class="select w-full" disabled>
+                  <label class="label">Kecamatan</label>
+                  <select id="district" name="district" class="select w-full" disabled>
                       <option value="" disabled selected>Pilih Kecamatan</option>
                   </select>
                   
-                  <label class="label">Village</label>
-                  <select id="village" class="select w-full" disabled>
+                  <label class="label">Kelurahan/Desa</label>
+                  <select id="village" name="village" class="select w-full" disabled>
                       <option value="" disabled selected>Pilih Kelurahan/Desa</option>
                   </select>
                 
-                  <label class="label">Address</label>
-                  <input type="text" class="input w-full" placeholder="Jalan ABCDE" />
+                  <label class="label">Alamat</label>
+                  <input type="text" name="address" class="input w-full" placeholder="Jalan ABCDE" />
                 </fieldset>
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success">Add</button>
