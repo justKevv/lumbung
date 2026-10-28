@@ -13,29 +13,42 @@
             </div>
         </button>
         <div id="avatar" class="mt-4 mr-4" popover>
-            <ul class="menu menu-paged menu-vertical bg-base-200 rounded-box w-56 lg:w-auto">
-                  <form method="POST" action="{{ route('logout') }}">          
-                      <li>
-                          <button class="btn btn-error">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                    <path d="M0 0h24v24H0z" fill="none" />
-                                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                   	<path stroke-dasharray="34" d="M12 4h-7c-0.55 0 -1 0.45 -1 1v14c0 0.55 0.45 1 1 1h7">
-                                  		<animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="34;0" />
-                                   	</path>
-                                   	<path stroke-dasharray="14" stroke-dashoffset="14" d="M9 12h11.5">
-                                  		<animate fill="freeze" attributeName="stroke-dashoffset" begin="0.5s" dur="0.2s" to="0" />
-                                   	</path>
-                                   	<path stroke-dasharray="8" stroke-dashoffset="8" d="M20.5 12l-3.5 -3.5M20.5 12l-3.5 3.5">
-                                  		<animate fill="freeze" attributeName="stroke-dashoffset" begin="0.7s" dur="0.2s" to="0" />
-                                   	</path>
-                                    </g>
-                              </svg>
-                            Logout
-                          </button>
-                      </li>
-                </form>
+            <ul class="menu menu-paged menu-vertical bg-base-200 rounded-box w-56 lg:w-auto">   
+                <li>
+                    <button class="btn" onclick="my_modal_5.showModal()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0z" fill="none" />
+                            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                           	<path stroke-dasharray="34" d="M12 4h-7c-0.55 0 -1 0.45 -1 1v14c0 0.55 0.45 1 1 1h7">
+                          		<animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="34;0" />
+                           	</path>
+                           	<path stroke-dasharray="14" stroke-dashoffset="14" d="M9 12h11.5">
+                          		<animate fill="freeze" attributeName="stroke-dashoffset" begin="0.5s" dur="0.2s" to="0" />
+                           	</path>
+                           	<path stroke-dasharray="8" stroke-dashoffset="8" d="M20.5 12l-3.5 -3.5M20.5 12l-3.5 3.5">
+                          		<animate fill="freeze" attributeName="stroke-dashoffset" begin="0.7s" dur="0.2s" to="0" />
+                           	</path>
+                            </g>
+                        </svg>
+                    Logout
+                    </button>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
+<dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box">
+    <h3 class="text-lg font-bold">You are about to be logout!</h3>
+    <p class="py-4">Are you sure that you want to logout?</p>
+    <div class="modal-action">
+        <form method="dialog">
+            <button class="btn">Cancel</button>    
+        </form>
+        <form method="POST" action="{{ route('logout') }}">
+        <!-- if there is a button in form, it will close the modal -->
+        <button class="btn btn-error">Logout</button>
+        </form>
+    </div>
+    </div>
+</dialog>
