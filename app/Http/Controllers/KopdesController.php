@@ -18,8 +18,9 @@ class KopdesController extends Controller
     public function index()
     {
         $provinces = Province::all();
+        $kopdes = Kopdes::all();
 
-        return view('kopdes', ['provinces' => $provinces]); 
+        return view('kopdes', compact('provinces', 'kopdes')); 
     }
 
     /**
@@ -35,7 +36,16 @@ class KopdesController extends Controller
      */
     public function store(StoreKopdesRequest $request)
     {
-        //
+        Kopdes::create([
+            'name' => $request->name,
+            'province' => $request->province,
+            'city' => $request->city,
+            'kecamatan' => $request->district,
+            'kelurahan' => $request->village,
+            'address' => $request->address
+        ]);
+
+        return redirect()->route('kopdes');
     }
 
     /**
