@@ -36,8 +36,8 @@
                             </button>
                             <ul class="dropdown dropdown-end menu w-52 rounded-box bg-base-100 shadow-sm"
                               popover id="popover-1" style="position-anchor:--anchor-1">
-                              <li><a>Edit</a></li>
-                              <li><a>Delete</a></li>
+                              <li><a><svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil preview-icon"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg> Edit</a></li>
+                              <li><button onclick="delete_kopdes_{{ $kp->id }}.showModal()"><svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash preview-icon"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete</button></li>
                             </ul>
                         </td>
                     @endforeach
@@ -47,6 +47,11 @@
     </x-card>
     <dialog id="kopdes_add" class="modal modal-bottom sm:modal-middle">
         <div class="modal-box">
+            <div class="flex justify-end">    
+                <form method="dialog">
+                    <button class="btn-ghost"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x preview-icon"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>    
+                </form>
+            </div>
             <form method="POST" action="{{ route('kopdes.store') }}">
                 @csrf
                 <fieldset class="fieldset w-full bg-base-100 border-base-300 rounded-box border p-4">
@@ -87,6 +92,22 @@
             </form>
         </div>
     </dialog>
+    @foreach ($kopdes as $kd)
+        <dialog id="delete_kopdes_{{ $kd->id }}" class="modal modal-bottom sm:modal-middle">
+          <div class="modal-box">
+              <h3 class="text-lg font-bold">Delete {{ $kp->name }}?</h3>
+              <p class="py-4">This action is not reversible!</p>
+            <div class="modal-action">
+                <form method="dialog">
+                    <button class="btn">Cancel</button>    
+                </form>
+                <form method="POST" action="{{ route('logout') }}">
+                    <button class="btn btn-error"><svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash preview-icon"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete</button>
+                </form>
+            </div>
+          </div>
+        </dialog>
+    @endforeach
 </x-layouts.dashboard>
 
 <script>
