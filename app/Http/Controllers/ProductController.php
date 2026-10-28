@@ -13,7 +13,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+        $fields = (new Product)->getFillable();
+        
+        return view('product', compact('products', 'fields'));
     }
 
     /**
@@ -29,7 +32,12 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        Product::create([
+            'name' => $request->name,
+            'price' => $request->price
+        ]);
+
+        return redirect()->route('product.index');
     }
 
     /**
