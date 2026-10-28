@@ -46,12 +46,12 @@ class FortifyServiceProvider extends ServiceProvider
             }
         });
 
-        // $this->app->instance(LogoutResponse::class, new class implements LogoutResponse {
-        //     public function toResponse($request)
-        //     {
-        //         return redirect('/login');
-        //     }
-        // });
+        $this->app->instance(LogoutResponse::class, new class implements LogoutResponse {
+            public function toResponse($request)
+            {
+                return redirect('/login');
+            }
+        });
 
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
