@@ -1,4 +1,4 @@
-<div class="card card-border bg-base-100 w-full">
+ <div {{ $attributes->merge(['class' => 'card card-border bg-base-100']) }}>
   <div class="card-body">
       {{ $slot }}
   </div>

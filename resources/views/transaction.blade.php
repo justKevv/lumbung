@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-layouts.dashboard>
     <x-slot:title>Transaction</x-slot:title>
     <x-card>
         <table class="table">
@@ -40,4 +40,4 @@
             </tbody>
         </table>
     </x-card>
-</x-layouts.app>
+</x-layouts.dashboard>
