@@ -1,7 +1,7 @@
 <x-layouts.app>
     <div class="flex justify-center items-center h-screen">
         <x-card class="w-96">
-            <h1 class="align-middle">Login</h1>
+            <h1 class="font-bold text-2xl flex justify-center items-center">Login</h1>
             <form class="flex flex-col gap-4" method="POST" action="{{ route('login') }}" >
                 @csrf
                 <label class="input validator">
