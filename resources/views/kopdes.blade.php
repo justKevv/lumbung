@@ -1,5 +1,15 @@
 <x-layouts.dashboard>
     <x-slot:title>Kopdes</x-slot:title>
+    @if ($errors->any())
+        <div class="alert alert-error mb-4">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <x-card>
         <div class="flex justify-end">    
             <button class="btn" onclick="kopdes_add.showModal()">
@@ -59,7 +69,7 @@
                     <button class="btn-ghost"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x preview-icon"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>    
                 </form>
             </div>
-            <form method="POST" action="{{ route('kopdes.store') }}">
+            <form method="POST" action="{{ route('kopdes.store') }}" data-cascade>
                 @csrf
                 <fieldset class="fieldset w-full bg-base-100 border-base-300 rounded-box border p-4">
                   <legend class="fieldset-legend">Kopdes Baru</legend>
@@ -81,7 +91,7 @@
                   </select>
                   
                   <label class="label">Kecamatan</label>
-                  <select data-field="district" name="district" class="select w-full" disabled
+                  <select data-field="district" name="district" class="select w-full" disabled>
                       <option value="" disabled selected>Pilih Kecamatan</option>
                   </select>
                   
@@ -100,6 +110,59 @@
         </div>
     </dialog>
     @foreach ($kopdes as $kd)
+        <dialog id="kopdes_edit_{{ $kd->id }}" class="modal modal-bottom sm:modal-middle">
+            <div class="modal-box">
+                <div class="flex justify-end">    
+                    <form method="dialog">
+                        <button class="btn-ghost"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x preview-icon"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>    
+                    </form>
+                </div>
+                <form method="POST" action="{{ route('kopdes.update', $kd) }}" data-cascade>
+                    @csrf
+                    @method('PUT')
+                    <fieldset class="fieldset w-full bg-base-100 border-base-300 rounded-box border p-4">
+                      <legend class="fieldset-legend">Edit {{ $kd->name }}</legend>
+                    
+                      <label class="label">Nama</label>
+                      <input type="text" name="name" value="{{ $kd->name }}" class="input w-full" placeholder="Kopdes A" />
+    
+                      <label class="label">Provinsi</label>
+                      <select data-field="province" name="province" class="select w-full">
+                          <option value="" disabled>Pilih Provinsi</option>
+                          <option value="{{ $kd->province }}" selected>{{ $kd->province }}</option>
+                          @foreach ($provinces as $province)
+                              <option value="{{ $province->name }}" data-code="{{ $province->code }}">{{ $province->name }}</option>
+                          @endforeach
+                      </select>
+                      
+                      <label class="label" name="regency">Kota</label>
+                      <select data-field="regency" name="city" class="select w-full">
+                          <option value="" disabled>Pilih Kota/Kabupaten</option>
+                          <option value="{{ $kd->city }}"selected>{{ $kd->city }}</option>
+                      </select>
+                      
+                      <label class="label">Kecamatan</label>
+                      <select data-field="district" name="district" class="select w-full">
+                          <option value="" disabled selected>Pilih Kecamatan</option>
+                          <option value="{{ $kd->kecamatan }}" selected>{{ $kd->kecamatan }}</option>
+                      </select>
+                      
+                      <label class="label">Kelurahan/Desa</label>
+                      <select data-field="village" name="village" class="select w-full">
+                          <option value="" disabled>Pilih Kelurahan/Desa</option>
+                          <option value="{{ $kd->kelurahan }}" selected>{{ $kd->kelurahan }}</option>
+                          
+                      </select>
+                    
+                      <label class="label">Alamat</label>
+                      <input type="text" value="{{ $kd->address }}" name="address" class="input w-full" placeholder="Jalan ABCDE" />
+                    </fieldset>
+                    <div class="modal-action">
+                        <button type="submit" class="btn btn-warning">Save</button>
+                    </div>
+                </form>
+            </div>
+        </dialog>
         <dialog id="delete_kopdes_{{ $kd->id }}" class="modal modal-bottom sm:modal-middle">
           <div class="modal-box">
               <h3 class="text-lg font-bold">Delete {{ $kd->name }}?</h3>
@@ -120,24 +183,14 @@
 </x-layouts.dashboard>
 
 <script>
-    const selects = {
-        province: document.getElementById('province'),
-        regency: document.getElementById('regency'),
-        district: document.getElementById('district'),
-        village: document.getElementById('village'),
-    };
-
-    const codeOf = (select) => select.selectedOptions[0]?.dataset.code;
-
     async function fill(select, url, placeholder) {
         select.innerHTML = `<option value="" disabled selected>${placeholder}</option>`;
-        select.disabled = true;
-    
+
         if (!url) return;
-    
+
         const response = await fetch(url);
         const items = await response.json();
-    
+
         items.forEach((item) => {
             const option = new Option(item.name, item.name);
             option.dataset.code = item.code;
@@ -145,31 +198,31 @@
         });
         select.disabled = false;
     }
-    
+
     const codeOf = (select) => select.selectedOptions[0]?.dataset.code;
-    
+
     function initCascade(form) {
         const field = (name) => form.querySelector(`[data-field="${name}"]`);
         const province = field('province');
         const regency = field('regency');
         const district = field('district');
         const village = field('village');
-    
+
         province.addEventListener('change', (e) => {
             const code = codeOf(e.target);
             fill(regency, code && `/kopdes/provinces/${code}/regencies`, 'Pilih Kota/Kabupaten');
         });
-    
+
         regency.addEventListener('change', (e) => {
             const code = codeOf(e.target);
             fill(district, code && `/kopdes/regencies/${code}/districts`, 'Pilih Kecamatan');
         });
-    
+
         district.addEventListener('change', (e) => {
             const code = codeOf(e.target);
             fill(village, code && `/kopdes/districts/${code}/villages`, 'Pilih Kelurahan/Desa');
         });
     }
-    
+
     document.querySelectorAll('form[data-cascade]').forEach(initCascade);
 </script>

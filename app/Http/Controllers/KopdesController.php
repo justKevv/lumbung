@@ -69,7 +69,16 @@ class KopdesController extends Controller
      */
     public function update(UpdateKopdesRequest $request, Kopdes $kopdes)
     {
-        //
+        $kopdes->update([
+            'name' => $request->name,
+            'province' => $request->province,
+            'city' => $request->city,
+            'kecamatan' => $request->district,
+            'kelurahan' => $request->village,
+            'address' => $request->address
+        ]);
+
+        return redirect()->route('kopdes');
     }
 
     /**

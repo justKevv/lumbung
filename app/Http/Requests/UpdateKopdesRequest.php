@@ -12,7 +12,7 @@ class UpdateKopdesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()->can('manage-super-admin');
     }
 
     /**
@@ -23,7 +23,12 @@ class UpdateKopdesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'province' => ['required', 'string'],
+            'city' => ['required', 'string'],
+            'district' => ['required', 'string'],
+            'village' => ['required', 'string'],
+            'address' => ['required', 'string', 'max:255'],
         ];
     }
 }
