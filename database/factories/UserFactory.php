@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Kopdes;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -26,6 +27,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'kopdes_id' => Kopdes::inRandomOrder()->first()->id ?? Kopdes::factory(),
             'email' => fake()->unique()->safeEmail(),
             'password' => static::$password ??= Hash::make('password'),
         ];

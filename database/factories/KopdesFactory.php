@@ -18,7 +18,15 @@ class KopdesFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->name(),
+            'province' => fake()->randomElement([
+                'Jawa Timur',
+                'Jawa Barat',
+                'Kalimantan',
+                'Sumatra'
+            ]),
+            'city' => fake()->city(),
+            'address' => fake()->address()
         ];
     }
 }
