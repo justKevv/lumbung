@@ -9,7 +9,7 @@
                 <input type="text" name="name" class="input w-full" placeholder="Minyak Goreng" />
 
                 <label class="label">Harga</label>
-                <input type="text" name="price∫" class="input w-full" placeholder="18000" />
+                <input type="text" name="price" class="input w-full" placeholder="18000" />
             </x-slot:modal_add>
             <x-slot:modal_edit>
                 
