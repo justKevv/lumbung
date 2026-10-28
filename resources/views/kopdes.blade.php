@@ -42,7 +42,7 @@
                                     </button>
                                     <ul class="dropdown dropdown-end menu w-52 rounded-box bg-base-100 shadow-sm"
                                       popover id="popover-1" style="position-anchor:--anchor-1">
-                                      <li><a><svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil preview-icon"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg> Edit</a></li>
+                                      <li><button onclick="kopdes_edit_{{ $kp->id }}.showModal()"><svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil preview-icon"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg> Edit</button></li>
                                       <li><button onclick="delete_kopdes_{{ $kp->id }}.showModal()"><svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash preview-icon"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete</button></li>
                                     </ul>
                                 </td>
@@ -68,7 +68,7 @@
                   <input type="text" name="name" class="input w-full" placeholder="Kopdes A" />
 
                   <label class="label">Provinsi</label>
-                  <select id="province" name="province" class="select w-full">
+                  <select data-field="province" name="province" class="select w-full">
                       <option value="" disabled selected>Pilih Provinsi</option>
                       @foreach ($provinces as $province)
                           <option value="{{ $province->name }}" data-code="{{ $province->code }}">{{ $province->name }}</option>
@@ -76,17 +76,17 @@
                   </select>
                   
                   <label class="label" name="regency">Kota</label>
-                  <select id="regency" name="city" class="select w-full" disabled>
+                  <select data-field="regency" name="city" class="select w-full" disabled>
                       <option value="" disabled selected>Pilih Kota/Kabupaten</option>
                   </select>
                   
                   <label class="label">Kecamatan</label>
-                  <select id="district" name="district" class="select w-full" disabled>
+                  <select data-field="district" name="district" class="select w-full" disabled
                       <option value="" disabled selected>Pilih Kecamatan</option>
                   </select>
                   
                   <label class="label">Kelurahan/Desa</label>
-                  <select id="village" name="village" class="select w-full" disabled>
+                  <select data-field="village" name="village" class="select w-full" disabled>
                       <option value="" disabled selected>Pilih Kelurahan/Desa</option>
                   </select>
                 
@@ -108,7 +108,7 @@
                 <form method="dialog">
                     <button class="btn">Cancel</button>    
                 </form>
-                <form method="POST" action="{{ route('kopdes.delete', $kd) }}">
+                <form method="POST" action="{{ route('kopdes.destroy', $kd) }}">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-error"><svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash preview-icon"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete</button>
@@ -132,12 +132,12 @@
     async function fill(select, url, placeholder) {
         select.innerHTML = `<option value="" disabled selected>${placeholder}</option>`;
         select.disabled = true;
-
+    
         if (!url) return;
-
+    
         const response = await fetch(url);
         const items = await response.json();
-
+    
         items.forEach((item) => {
             const option = new Option(item.name, item.name);
             option.dataset.code = item.code;
@@ -145,19 +145,31 @@
         });
         select.disabled = false;
     }
-
-    selects.province.addEventListener('change', (e) => {
-        const code = codeOf(e.target);
-        fill(selects.regency, code && `/kopdes/provinces/${code}/regencies`, 'Pilih Kota/Kabupaten');
-    });
-
-    selects.regency.addEventListener('change', (e) => {
-        const code = codeOf(e.target);
-        fill(selects.district, code && `/kopdes/regencies/${code}/districts`, 'Pilih Kecamatan');
-    });
-
-    selects.district.addEventListener('change', (e) => {
-        const code = codeOf(e.target);
-        fill(selects.village, code && `/kopdes/districts/${code}/villages`, 'Pilih Kelurahan/Desa');
-    });
+    
+    const codeOf = (select) => select.selectedOptions[0]?.dataset.code;
+    
+    function initCascade(form) {
+        const field = (name) => form.querySelector(`[data-field="${name}"]`);
+        const province = field('province');
+        const regency = field('regency');
+        const district = field('district');
+        const village = field('village');
+    
+        province.addEventListener('change', (e) => {
+            const code = codeOf(e.target);
+            fill(regency, code && `/kopdes/provinces/${code}/regencies`, 'Pilih Kota/Kabupaten');
+        });
+    
+        regency.addEventListener('change', (e) => {
+            const code = codeOf(e.target);
+            fill(district, code && `/kopdes/regencies/${code}/districts`, 'Pilih Kecamatan');
+        });
+    
+        district.addEventListener('change', (e) => {
+            const code = codeOf(e.target);
+            fill(village, code && `/kopdes/districts/${code}/villages`, 'Pilih Kelurahan/Desa');
+        });
+    }
+    
+    document.querySelectorAll('form[data-cascade]').forEach(initCascade);
 </script>

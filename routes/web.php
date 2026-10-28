@@ -24,7 +24,6 @@ Route::middleware(['auth'])->group(function() {
                 ->name('kopdes.villages');
 
 
-        Route::post('/kopdes/store', [KopdesController::class, 'store'])->name('kopdes.store');
-        Route::delete('/kopdes/{kopdes}/delete', [KopdesController::class, 'destroy'])->name('kopdes.delete');
+        Route::resource('kopdes', KopdesController::class)->only(['store', 'edit', 'update', 'destroy'])->names('kopdes');
     });
 });
