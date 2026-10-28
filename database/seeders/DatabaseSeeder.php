@@ -18,18 +18,18 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        Kopdes::factory()->create([
-            'name' => 'Kopdes Sukun',
-            'province' => "Jawa Timur",
-            'city' => "Malang",
-            'address' => "Jalan abcde"
-        ]);
+        // Kopdes::factory()->create([
+        //     'name' => 'Kopdes Sukun',
+        //     'province' => "Jawa Timur",
+        //     'city' => "Malang",
+        //     'address' => "Jalan abcde"
+        // ]);
 
         User::factory()->create([
             'name' => 'Test1',
             'email' => 'test@example.com',
             'password' => 'Test1234',
-            'role' => 'admin',
+            'role' => 'super_admin',
         ]);
     }
 }
