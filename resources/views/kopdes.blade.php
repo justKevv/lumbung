@@ -12,36 +12,35 @@
             <thead>
                 <tr>
                 <th></th>
-                <th>Produk</th>
-                <th>Stok</th>
-                <th>Harga</th>
-                <th>Status</th>
+                <th>Nama</th>
+                <th>Provinsi</th>
+                <th>Kota</th>
+                <th>Kecamatan</th>
+                <th>Kelurahan</th>
+                <th>Alamat</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- row 1 -->
                 <tr>
-                <th>1</th>
-                <td>Beras 5 kg</td>
-                <td>42</td>
-                <td>Rp 75.000</td>
-                <td><div class="badge badge-outline badge-success">Tersedia</div></td>
-                </tr>
-
-                <tr>
-                <th>2</th>
-                <td>Beras 5 kg</td>
-                <td>42</td>
-                <td>Rp 75.000</td>
-                <td><div class="badge badge-outline badge-warning">Menipis</div></td>
-                </tr>
-
-                <tr>
-                <th>3</th>
-                <td>Beras 5 kg</td>
-                <td>42</td>
-                <td>Rp 75.000</td>
-                <td><div class="badge badge-outline badge-error">Habis</div></td>
+                    @foreach ($kopdes as $kp)
+                        <th>{{ $loop->iteration }}</th>
+                        <td>{{ $kp->name }}</td>
+                        <td>{{ $kp->province }}</td>
+                        <td>{{ $kp->city }}</td>
+                        <td>{{ $kp->kecamatan }}</td>
+                        <td>{{ $kp->kelurahan }}</td>
+                        <td>{{ $kp->address }}</td>
+                        <td>
+                            <button class="btn btn-ghost" popovertarget="popover-1" style="anchor-name:--anchor-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis preview-icon"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                            </button>
+                            <ul class="dropdown dropdown-end menu w-52 rounded-box bg-base-100 shadow-sm"
+                              popover id="popover-1" style="position-anchor:--anchor-1">
+                              <li><a>Edit</a></li>
+                              <li><a>Delete</a></li>
+                            </ul>
+                        </td>
+                    @endforeach
                 </tr>
             </tbody>
         </table>
