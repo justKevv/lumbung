@@ -2,7 +2,7 @@
     <div class="flex justify-center items-center h-screen">
         <x-card class="w-96">
             <h1 class="align-middle">Login</h1>
-            <form class="flex flex-col gap-4" action="POST" action="{{ route('login') }}" >
+            <form class="flex flex-col gap-4" method="POST" action="{{ route('login') }}" >
                 @csrf
                 <label class="input validator">
                     <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -17,9 +17,11 @@
                         <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                     </g>
                     </svg>
-                    <input type="email" placeholder="mail@site.com" required />
+                    <input type="email" name="email" placeholder="mail@site.com" required />
                 </label>
-                <div class="validator-hint hidden">Enter valid email address</div>
+                @error('email')
+                    <div class="validator-hint hidden">{{ $message }}</div>
+                @enderror
                 <label class="input validator">
                     <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <g
@@ -36,6 +38,7 @@
                     </g>
                     </svg>
                     <input
+                        name="password"
                     type="password"
                     required
                     placeholder="Password"
@@ -44,6 +47,9 @@
                     title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
                     />
                 </label>
+                @error('password')
+                    <p class="text-error text-sm">{{ $message }}</p>
+                @enderror
                 <p class="validator-hint hidden">
                     Must be more than 8 characters, including
                     <br />At least one number <br />At least one lowercase letter <br />At least one uppercase letter
