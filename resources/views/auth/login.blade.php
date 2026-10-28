@@ -19,9 +19,6 @@
                     </svg>
                     <input type="email" name="email" placeholder="mail@site.com" required />
                 </label>
-                @error('email')
-                    <div class="validator-hint hidden">{{ $message }}</div>
-                @enderror
                 <label class="input validator">
                     <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <g
@@ -47,6 +44,9 @@
                     title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
                     />
                 </label>
+                @error('email')
+                    <div class="text-error text-sm">{{ $message }}</div>
+                @enderror
                 @error('password')
                     <p class="text-error text-sm">{{ $message }}</p>
                 @enderror
