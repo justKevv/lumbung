@@ -16,7 +16,7 @@
             <ul class="menu menu-paged menu-vertical bg-base-200 rounded-box w-56 lg:w-auto">
                   <form method="POST" action="{{ route('logout') }}">          
                       <li>
-                          <button class="btn">
+                          <button class="btn btn-error">
                               <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                                     <path d="M0 0h24v24H0z" fill="none" />
                                     <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
