@@ -11,5 +11,8 @@
                 <label class="label">Harga</label>
                 <input type="text" name="price∫" class="input w-full" placeholder="18000" />
             </x-slot:modal_add>
+            <x-slot:modal_edit>
+                
+            </x-slot:modal_edit>
     </x-resources-table>
 </x-layouts.dashboard>
