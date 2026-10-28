@@ -7,9 +7,11 @@ Route::middleware(['auth'])->group(function() {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/transaction', function () {
-        return view('transaction');
-    })->name('transaction');
+    Route::middleware('can:manage-admin')->group(function() {
+        Route::get('/transaction', function () {
+            return view('transaction');
+        })->name('transaction');   
+    });
 
     Route::get('/kopdes', function () {
         return view('kopdes');
