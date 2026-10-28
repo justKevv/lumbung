@@ -23,43 +23,45 @@
                 <h1 class="text-xl font-semibold text-neutral-300">No data available right now :(</h1>
             </div>
         @else
-            <table class="table">
-                <!-- head -->
-                <thead>
-                    <tr>
-                    <th></th>
-                    <th>Nama</th>
-                    <th>Provinsi</th>
-                    <th>Kota</th>
-                    <th>Kecamatan</th>
-                    <th>Kelurahan</th>
-                    <th>Alamat</th>
-                    </tr>
-                </thead>
-                <tbody>
-                     @foreach ($kopdes as $kp)
+            <div class="overflow-x-auto">       
+                <table class="table">
+                    <!-- head -->
+                    <thead>
                         <tr>
-                            <th>{{ $loop->iteration }}</th>
-                            <td>{{ $kp->name }}</td>
-                            <td>{{ $kp->province }}</td>
-                            <td>{{ $kp->city }}</td>
-                            <td>{{ $kp->kecamatan }}</td>
-                            <td>{{ $kp->kelurahan }}</td>
-                            <td>{{ $kp->address }}</td>
-                            <td>
-                                <button class="btn btn-ghost" popovertarget="popover-1" style="anchor-name:--anchor-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis preview-icon"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
-                                </button>
-                                <ul class="dropdown dropdown-end menu w-52 rounded-box bg-base-100 shadow-sm"
-                                    popover id="popover-1" style="position-anchor:--anchor-1">
-                                    <li><button onclick="kopdes_edit_{{ $kp->id }}.showModal()"><svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil preview-icon"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg> Edit</button></li>
-                                    <li><button onclick="delete_kopdes_{{ $kp->id }}.showModal()"><svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash preview-icon"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete</button></li>
-                                </ul>
-                            </td>
+                        <th></th>
+                        <th>Nama</th>
+                        <th>Provinsi</th>
+                        <th>Kota</th>
+                        <th>Kecamatan</th>
+                        <th>Kelurahan</th>
+                        <th>Alamat</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                         @foreach ($kopdes as $kp)
+                            <tr>
+                                <th>{{ $loop->iteration }}</th>
+                                <td>{{ $kp->name }}</td>
+                                <td>{{ $kp->province }}</td>
+                                <td>{{ $kp->city }}</td>
+                                <td>{{ $kp->kecamatan }}</td>
+                                <td>{{ $kp->kelurahan }}</td>
+                                <td>{{ $kp->address }}</td>
+                                <td>
+                                    <button class="btn btn-ghost" popovertarget="popover-1" style="anchor-name:--anchor-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis preview-icon"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                                    </button>
+                                    <ul class="dropdown dropdown-end menu w-52 rounded-box bg-base-100 shadow-sm"
+                                        popover id="popover-1" style="position-anchor:--anchor-1">
+                                        <li><button onclick="kopdes_edit_{{ $kp->id }}.showModal()"><svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil preview-icon"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg> Edit</button></li>
+                                        <li><button onclick="delete_kopdes_{{ $kp->id }}.showModal()"><svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash preview-icon"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete</button></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         @endif
     </x-card>
     <dialog id="kopdes_add" class="modal modal-bottom sm:modal-middle">
