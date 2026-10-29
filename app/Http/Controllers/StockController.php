@@ -15,10 +15,12 @@ class StockController extends Controller
     public function index()
     {
         $stocks = Stock::with('product', 'kopdes')->get();
-        $products = Product::all();
+        $products = Product::get(['id', 'name']);
         $fields = ['product_name', 'total'];
+        $kopdesId = auth()->user()->admins()->value('kopdes_id');
+        $stockedProductIds = Stock::where('kopdes_id', $kopdesId)->pluck('product_id');
         
-        return view('stock', compact('stocks', 'fields', 'products'));
+        return view('stock', compact('stocks', 'fields', 'products', 'stockedProductIds'));
     }
 
     /**
