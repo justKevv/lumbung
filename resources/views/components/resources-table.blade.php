@@ -3,6 +3,7 @@
     'datas',
     'datas_name',
     'edit_form' => null,
+    'title_field' => 'name',
     'shows_add_button' => true,
     'shows_action_button' => true
 ])
@@ -95,7 +96,7 @@
                     @csrf
                     @method('PUT')
                     <fieldset class="fieldset w-full bg-base-100 border-base-300 rounded-box border p-4">
-                      <legend class="fieldset-legend">Edit {{ $data->name }}</legend>
+                      <legend class="fieldset-legend">Edit {{ $data->{$title_field} }}</legend>
                       {{ $edit_form($data) }}
                     </fieldset>
                     <div class="modal-action">
@@ -106,7 +107,7 @@
         </dialog>
         <dialog id="delete_{{ $model }}_{{ $data->id }}" class="modal modal-bottom sm:modal-middle">
           <div class="modal-box">
-              <h3 class="text-lg font-bold">Delete {{ $data->name }}?</h3>
+              <h3 class="text-lg font-bold">Delete {{ $data->{$title_field} }}?</h3>
               <p class="py-4">This action is not reversible!</p>
             <div class="modal-action">
                 <form method="dialog">

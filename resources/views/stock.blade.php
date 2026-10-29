@@ -4,6 +4,7 @@
         model="stock"
         :datas="$stocks"
         :datas_name="$fields"
+        title_field="product_name"
         :edit_form="fn ($stock) => view('partials.stock-edit-fields', ['stock' => $stock, 'products' => $products, 'stockedProductIds' => $stockedProductIds])">
             <x-slot:modal_add>
                 <label class="label">Produk</label>
