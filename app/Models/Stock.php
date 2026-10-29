@@ -18,11 +18,6 @@ class Stock extends Model
     {
         return Attribute::get(fn () => $this->kopdes?->name);
     }
-    
-    protected function productName(): Attribute
-    {
-        return Attribute::get(fn () => $this->product?->name);
-    }
 
     public function kopdes(): BelongsTo {
         return $this->belongsTo(Kopdes::class, 'kopdes_id');
