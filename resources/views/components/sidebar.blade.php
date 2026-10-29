@@ -10,6 +10,8 @@
         </a>
       </li>
 
+      <div class="divider m-2"></div>
+
       @can('manage-admin')
           <!-- List item -->
           <li class="{{ request()->routeIs('transaction') ? 'menu-active rounded-md' : "" }}">
