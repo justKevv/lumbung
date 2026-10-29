@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KopdesController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,7 @@ Route::middleware(['auth'])->group(function() {
         Route::get('/transaction', function () {
             return view('transaction');
         })->name('transaction');   
+        Route::resource('stock', StockController::class)->only(['index', 'store', 'edit', 'update', 'destroy'])->names('stock');        
     });
 
     Route::middleware('can:manage-super-admin')->group(function () {

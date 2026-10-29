@@ -13,7 +13,10 @@ class StockController extends Controller
      */
     public function index()
     {
-        //
+        $stocks = Stock::with('product', 'kopdes')->get();
+        $fields = ['product_name', 'total'];
+        
+        return view('stock', compact('stocks', 'fields'));
     }
 
     /**
