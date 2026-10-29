@@ -2,6 +2,7 @@
     'model',
     'datas',
     'datas_name',
+    'edit_form' => null,
     'shows_add_button' => true,
     'shows_action_button' => true
 ])
@@ -81,7 +82,7 @@
     </dialog>
 @endisset
 
-@isset($modal_edit)
+@isset($edit_form)
     @foreach ($datas as $data)
         <dialog id="{{ $model }}_edit_{{ $data->id }}" class="modal modal-bottom sm:modal-middle">
             <div class="modal-box">
@@ -95,7 +96,7 @@
                     @method('PUT')
                     <fieldset class="fieldset w-full bg-base-100 border-base-300 rounded-box border p-4">
                       <legend class="fieldset-legend">Edit {{ $data->name }}</legend>
-                      {{ $modal_edit }}
+                      {{ $edit_form($data) }}
                     </fieldset>
                     <div class="modal-action">
                         <button type="submit" class="btn btn-warning">Save</button>
