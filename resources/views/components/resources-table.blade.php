@@ -41,11 +41,11 @@
                             @endforeach
                             @if ($shows_action_button)
                                 <td>
-                                    <button class="btn btn-ghost" popovertarget="popover-1" style="anchor-name:--anchor-1">
+                                    <button class="btn btn-ghost" popovertarget="popover-{{ $model }}-{{ $data->id }}" style="anchor-name:--anchor-{{ $model }}-{{ $data->id }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis preview-icon"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
                                     </button>
                                     <ul class="dropdown dropdown-end menu w-52 rounded-box bg-base-100 shadow-sm"
-                                        popover id="popover-1" style="position-anchor:--anchor-1">
+                                        popover id="popover-{{ $model }}-{{ $data->id }}" style="position-anchor:--anchor-{{ $model }}-{{ $data->id }}">
                                         <li><button onclick="{{ $model }}_edit_{{ $data->id }}.showModal()"><svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil preview-icon"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg> Edit</button></li>
                                         <li><button onclick="delete_{{ $model }}_{{ $data->id }}.showModal()"><svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash preview-icon"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete</button></li>
                                     </ul>
@@ -70,10 +70,9 @@
             <form method="POST" action="{{ route($model . '.store') }}" data-cascade>
                 @csrf
                 <fieldset class="fieldset w-full bg-base-100 border-base-300 rounded-box border p-4">
-                  <legend class="fieldset-legend capitalize">{{ $model }} baru</legend    
+                  <legend class="fieldset-legend capitalize">{{ $model }} baru</legend>
                   {{ $modal_add }}    
-                </fields
-                et>
+                </fieldset>
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success">Add</button>
                 </div>
