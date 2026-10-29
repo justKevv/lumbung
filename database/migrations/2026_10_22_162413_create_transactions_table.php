@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("kopdes_id")->constrained();
             $table->string("name");
-            $table->date("transaction_date");
+            $table->date("date");
             $table->timestamps();
         });
     }
