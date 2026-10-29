@@ -28,7 +28,7 @@
                     <tr>
                     <th></th>
                     @foreach ($datas_name as $dn)
-                        <th class="capitalize">{{ $dn }}</th>
+                        <th class="capitalize">{{ Str::replace("_", " ", $dn) }}</th>
                     @endforeach
                     </tr>
                 </thead>
