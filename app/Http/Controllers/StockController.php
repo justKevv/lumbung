@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreStockRequest;
 use App\Http\Requests\UpdateStockRequest;
+use App\Models\Product;
 use App\Models\Stock;
 
 class StockController extends Controller
@@ -14,9 +15,10 @@ class StockController extends Controller
     public function index()
     {
         $stocks = Stock::with('product', 'kopdes')->get();
+        $products = Product::all();
         $fields = ['product_name', 'total'];
         
-        return view('stock', compact('stocks', 'fields'));
+        return view('stock', compact('stocks', 'fields', 'products'));
     }
 
     /**
