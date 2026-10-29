@@ -30,7 +30,7 @@
                     <tr>
                     <th></th>
                     @foreach ($datas_name as $dn)
-                        <th class="capitalize">{{ Str::replace("_", " ", $dn) }}</th>
+                        <th class="capitalize">{{ Str::replace(".", " ", $dn) }}</th>
                     @endforeach
                     </tr>
                 </thead>
@@ -39,7 +39,7 @@
                         <tr>
                             <th>{{ $loop->iteration }}</th>
                             @foreach ($datas_name as $dn)
-                                <td>{{ $data->$dn ?? "-" }}</td>
+                                <td>{{ data_get($data, $dn) ?? "-" }}</td>
                             @endforeach
                             @if ($shows_action_button)
                                 <td>

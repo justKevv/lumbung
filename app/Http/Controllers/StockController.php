@@ -16,7 +16,7 @@ class StockController extends Controller
     {
         $stocks = Stock::with('product', 'kopdes')->get();
         $products = Product::get(['id', 'name']);
-        $fields = ['product_name', 'total'];
+        $fields = ['product.name', 'product.price', 'total'];
         $kopdesId = auth()->user()->admins()->value('kopdes_id');
         $stockedProductIds = Stock::where('kopdes_id', $kopdesId)->pluck('product_id');
         
