@@ -37,7 +37,7 @@
                         <tr>
                             <th>{{ $loop->iteration }}</th>
                             @foreach ($datas_name as $dn)
-                                <td>{{ $data->$dn }}</td>
+                                <td>{{ $data->$dn ?? "-" }}</td>
                             @endforeach
                             @if ($shows_action_button)
                                 <td>
