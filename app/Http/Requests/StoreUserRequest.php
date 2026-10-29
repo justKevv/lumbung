@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class StoreUserRequest extends FormRequest
 {
@@ -12,7 +14,7 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()->can('manage-super-admin');
     }
 
     /**
@@ -23,7 +25,11 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', Password::min(8)->mixedCase()->numbers()],
+            'role' => ['required', Rule::in(['super_admin', 'admin'])],
+            'kopdes_id' => ['required_if:role,admin', 'exists:kopdes,id', Rule::unique('admins', 'kopdes_id')],
         ];
     }
 }

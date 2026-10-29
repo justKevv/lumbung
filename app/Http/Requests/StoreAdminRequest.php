@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreAdminRequest extends FormRequest
 {
@@ -12,7 +13,7 @@ class StoreAdminRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()->can('manage-super-admin');
     }
 
     /**
@@ -23,7 +24,8 @@ class StoreAdminRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'users_id' => ['required', 'exists:users,id'],
+            'kopdes_id' => ['required', 'exists:kopdes,id', Rule::unique('admins', 'kopdes_id')],
         ];
     }
 }

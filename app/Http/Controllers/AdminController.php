@@ -29,7 +29,9 @@ class AdminController extends Controller
      */
     public function store(StoreAdminRequest $request)
     {
-        //
+        Admin::create($request->validated());
+    
+        return back()->with('success', 'Admin berhasil ditambahkan.');
     }
 
     /**
