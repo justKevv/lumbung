@@ -72,7 +72,8 @@
                 <fieldset class="fieldset w-full bg-base-100 border-base-300 rounded-box border p-4">
                   <legend class="fieldset-legend capitalize">{{ $model }} baru</legend    
                   {{ $modal_add }}    
-                </fieldset>
+                </fields
+                et>
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success">Add</button>
                 </div>
@@ -93,7 +94,10 @@
                 <form method="POST" action="{{ route($model . '.update', $data) }}" data-cascade>
                     @csrf
                     @method('PUT')
-                    {{ $modal_edit }}
+                    <fieldset class="fieldset w-full bg-base-100 border-base-300 rounded-box border p-4">
+                      <legend class="fieldset-legend">Edit {{ $data->name }}</legend>
+                      {{ $modal_edit }}
+                    </fieldset>
                     <div class="modal-action">
                         <button type="submit" class="btn btn-warning">Save</button>
                     </div>
