@@ -49,12 +49,13 @@
 <script>
     async function fill(select, url, placeholder) {
         select.innerHTML = `<option value="" disabled selected>${placeholder}</option>`;
-
+        select.disabled = !url;
+    
         if (!url) return;
-
+    
         const response = await fetch(url);
         const items = await response.json();
-
+    
         items.forEach((item) => {
             const option = new Option(item.name, item.name);
             option.dataset.code = item.code;
@@ -70,22 +71,26 @@
         const regency = field('regency');
         const district = field('district');
         const village = field('village');
-
+    
         province.addEventListener('change', (e) => {
             const code = codeOf(e.target);
             fill(regency, code && `/kopdes/provinces/${code}/regencies`, 'Pilih Kota/Kabupaten');
+            fill(district, null, 'Pilih Kecamatan');
+            fill(village, null, 'Pilih Kelurahan/Desa');
         });
-
+    
         regency.addEventListener('change', (e) => {
             const code = codeOf(e.target);
             fill(district, code && `/kopdes/regencies/${code}/districts`, 'Pilih Kecamatan');
+            fill(village, null, 'Pilih Kelurahan/Desa');
         });
-
+    
         district.addEventListener('change', (e) => {
             const code = codeOf(e.target);
             fill(village, code && `/kopdes/districts/${code}/villages`, 'Pilih Kelurahan/Desa');
         });
     }
+
 
     document.querySelectorAll('form[data-cascade]').forEach(initCascade);
 </script>
