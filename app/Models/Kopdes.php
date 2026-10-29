@@ -13,7 +13,7 @@ class Kopdes extends Model
     /** @use HasFactory<\Database\Factories\KopdesFactory> */
     use HasFactory;
 
-    public function admins(): HasOne
+    public function admin(): HasOne
     {
         return $this->hasOne(Admin::class, 'kopdes_id');
     }
