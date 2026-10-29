@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Kopdes;
+use Creasi\Nusa\Models\Village;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,15 +18,17 @@ class KopdesFactory extends Factory
      */
     public function definition(): array
     {
+        $village = Village::query()
+            ->with('district.regency.province')
+            ->inRandomOrder()
+            ->firstOrFail();
+
         return [
-            'name' => fake()->name(),
-            'province' => fake()->randomElement([
-                'Jawa Timur',
-                'Jawa Barat',
-                'Kalimantan',
-                'Sumatra'
-            ]),
-            'city' => fake()->city(),
+            'name' => 'Kopdes '.$village->name,
+            'province' => $village->district->regency->province->name,
+            'city' => $village->district->regency->name,
+            'kecamatan' => $village->district->name,
+            'kelurahan' => $village->name,
             'address' => fake()->address()
         ];
     }
