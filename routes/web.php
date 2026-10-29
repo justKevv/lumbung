@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KopdesController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function() {
@@ -16,6 +18,8 @@ Route::middleware(['auth'])->group(function() {
     });
 
     Route::middleware('can:manage-super-admin')->group(function () {
+        Route::resource('user', UserController::class)->only(['index', 'store', 'edit', 'update', 'destroy'])->names('user');
+        Route::resource('admin', AdminController::class)->only(['store', 'edit', 'update', 'destroy'])->names('product');
         Route::resource('product', ProductController::class)->only(['index', 'store', 'edit', 'update', 'destroy'])->names('product');
         Route::resource('kopdes', KopdesController::class)->only(['index', 'store', 'edit', 'update', 'destroy'])->names('kopdes')->parameters(['kopdes' => 'kopdes']);
         Route::get('/kopdes/provinces/{province}/regencies', [KopdesController::class, 'regencies'])

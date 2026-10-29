@@ -28,6 +28,12 @@
           </li>
       @endcan
       @can('manage-super-admin')
+          <li class="{{ request()->routeIs('user.index') ? 'menu-active rounded-md' : "" }}">
+            <a href={{ route("user.index") }} class="is-drawer-close:tooltip rounded-md is-drawer-close:tooltip-right" data-tip="Users">
+                <svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round preview-icon"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+              <span class="is-drawer-close:hidden">Users</span>
+            </a>
+          </li>
           <li class="{{ request()->routeIs('kopdes.index') ? 'menu-active rounded-md' : "" }}">
             <a href={{ route("kopdes.index") }} class="is-drawer-close:tooltip rounded-md is-drawer-close:tooltip-right" data-tip="Kopdes">
                 <svg xmlns="http://www.w3.org/2000/svg" class="my-1.5 inline-block size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-store preview-icon"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
