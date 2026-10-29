@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreStockRequest extends FormRequest
 {
@@ -21,9 +22,17 @@ class StoreStockRequest extends FormRequest
      * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
-    {
+    {   
+        $kopdesId = $this->user()->admins()->value('kopdes_id');
+        
         return [
-            //
+            'product' => [
+                'required',
+                'exists:products,id',
+                Rule::unique('stocks', 'product_id')
+                    ->where(fn ($query) => $query->where('kopdes_id', $kopdesId)),
+            ],
+            'total' => ['required', 'integer', 'min:0'],
         ];
     }
 }
