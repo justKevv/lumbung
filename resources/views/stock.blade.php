@@ -14,7 +14,7 @@
                 </select>
 
                 <label class="label">Stok</label>
-                <input type="text" name="stock" class="input w-full" placeholder="42" />
+                <input type="text" name="total" class="input w-full" placeholder="42" />
             </x-slot:modal_add>
     </x-resources-table>
 </x-layouts.dashboard>

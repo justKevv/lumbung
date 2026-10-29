@@ -34,7 +34,14 @@ class StockController extends Controller
      */
     public function store(StoreStockRequest $request)
     {
-        //
+        
+        Stock::create([
+            'product_id' => $request->product,
+            'kopdes_id' => $request->user()->admins()->value('kopdes_id'),
+            'total' => $request->total
+        ]);
+
+        return redirect()->route('stock.index');
     }
 
     /**
