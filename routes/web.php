@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KopdesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,9 +14,7 @@ Route::middleware(['auth'])->group(function() {
     })->name('dashboard');
 
     Route::middleware('can:manage-admin')->group(function() {
-        Route::get('/transaction', function () {
-            return view('transaction');
-        })->name('transaction');   
+        Route::resource('transaction', TransactionController::class)->only(['index', 'store', 'edit', 'update', 'destroy'])->names('transaction');        
         Route::resource('stock', StockController::class)->only(['index', 'store', 'edit', 'update', 'destroy'])->names('stock');        
     });
 

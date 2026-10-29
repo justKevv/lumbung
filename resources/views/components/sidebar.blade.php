@@ -14,8 +14,8 @@
 
       @can('manage-admin')
           <!-- List item -->
-          <li class="{{ request()->routeIs('transaction') ? 'menu-active rounded-md' : "" }}">
-            <a href={{ route("transaction") }} class="is-drawer-close:tooltip rounded-md is-drawer-close:tooltip-right" data-tip="Transaksi">
+          <li class="{{ request()->routeIs('transaction.index') ? 'menu-active rounded-md' : "" }}">
+            <a href={{ route("transaction.index") }} class="is-drawer-close:tooltip rounded-md is-drawer-close:tooltip-right" data-tip="Transaksi">
               <!-- Settings icon -->
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="my-1.5 inline-block size-4">
                  	<path d="M0 0h24v24H0z" fill="none" />
