@@ -80,7 +80,25 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        DB::transaction(function () use ($request, $user) {
+            $data = $request->safe()->only(['name', 'email', 'role']);
+    
+            if ($request->filled('password')) {
+                $data['password'] = $request->password;
+            }
+    
+            $user->update($data);
+    
+            if ($user->role === 'admin') {
+                $user->admins()->updateOrCreate([], [
+                    'kopdes_id' => $request->validated('kopdes_id'),
+                ]);
+            } else {
+                $user->admins()->delete();
+            }
+        });
+    
+        return redirect()->route('user.index');
     }
 
     /**

@@ -4,6 +4,7 @@
         model="user"
         :datas="$users"
         :datas_name="$fields"
+        :edit_form="fn ($user) => view('partials.user-edit-fields', ['user' => $user, 'kopdes' => $kopdes])"
         >
             <x-slot:modal_add>
                 <label class="label">Nama</label>
@@ -76,19 +77,6 @@
                     </select>
                 </div>
             </x-slot:modal_add>
-            <x-slot:modal_edit>
-                
-                <div class="role-divider"></div>
-                <div class="kopdes-field" hidden>
-                    <label class="label">Kopdes</label>
-                    <select name="kopdes_id" class="select input w-full kopdes-select" disabled>
-                        <option value="" disabled selected>Pilih Kopdes</option>
-                        @foreach ($kopdes as $k)
-                            <option value="{{ $k->id }}">{{ $k->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </x-slot:modal_edit>
     </x-resources-table>
 </x-layouts.dashboard>
 <script>
