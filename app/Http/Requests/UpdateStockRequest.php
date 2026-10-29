@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateStockRequest extends FormRequest
 {
@@ -12,7 +13,7 @@ class UpdateStockRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()->can('manage-admin');
     }
 
     /**
@@ -22,8 +23,17 @@ class UpdateStockRequest extends FormRequest
      */
     public function rules(): array
     {
+        $kopdesId = $this->user()->admins()->value('kopdes_id');
+        
         return [
-            //
+            'product' => [
+                'required',
+                'exists:products,id',
+                Rule::unique('stocks', 'product_id')
+                    ->ignore($this->route('stock'))
+                    ->where(fn ($query) => $query->where('kopdes_id', $kopdesId)),
+            ],
+            'total' => ['required', 'integer', 'min:0'],
         ];
     }
 }

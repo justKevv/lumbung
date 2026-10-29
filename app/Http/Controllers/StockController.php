@@ -67,7 +67,13 @@ class StockController extends Controller
      */
     public function update(UpdateStockRequest $request, Stock $stock)
     {
-        //
+        $stock->update([
+            'product_id' => $request->product,
+            'kopdes_id' => $request->user()->admins()->value('kopdes_id'),
+            'total' => $request->total
+        ]);
+
+        return redirect()->route('stock.index');
     }
 
     /**

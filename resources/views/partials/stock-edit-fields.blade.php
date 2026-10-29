@@ -1,13 +1,14 @@
 @props([
     'stock',
-    'products'
+    'products',
+    'stockedProductIds'
 ])
 
 <label class="label">Produk</label>
 <select name="product" class="select input w-full role-select">
     <option value="" disabled>Pilih Produk</option>
-    @foreach ($products as $product)
-        <option value="{{ $product->id }}" @selected($product->id === $stock->product_id)>{{ $product->name }}</option>
+    @foreach ($products->whereNotIn('id', $stockedProductIds->diff([$stock->product_id])) as $product)
+        <option value="{{ $product->id }}" @selected((int) $product->id === (int) $stock->product_id)>{{ $product->name }}</option>
     @endforeach
 </select>
 
