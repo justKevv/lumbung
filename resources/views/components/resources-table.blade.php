@@ -3,8 +3,10 @@
     'datas',
     'datas_name',
     'edit_form' => null,
+    'detail_form' => null,
     'title_field' => 'name',
     'empty_text',
+    'show_details_button' => false,
     'shows_add_button' => true,
     'shows_action_button' => true
 ])
@@ -54,6 +56,13 @@
                                     </ul>
                                 </td>
                             @endif
+                            @if ($show_details_button)
+                                <td>
+                                    <button class="btn btn-ghost" onclick="{{ $model }}_{{ $data->id }}.showModal()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info preview-icon"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                                    </button>
+                                </td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>
@@ -61,6 +70,24 @@
         </div>
     @endif
 </x-card>
+
+@isset ($detail_form)
+    @foreach ($datas as $data)
+        <dialog id="{{ $model }}_{{ $data->id }}" class="modal modal-bottom sm:modal-middle">
+            <div class="modal-box">
+                <fieldset class="fieldset w-full bg-base-100 border-base-300 rounded-box border p-4">
+                    <legend class="fieldset-legend capitalize">{{ $model }} detail</legend>
+                    {{ $detail_form($data) }}
+                </fieldset>
+                <div class="modal-action">
+                    <form method="dialog">
+                        <button class="btn">Close</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
+    @endforeach
+@endisset
 
 @isset($modal_add)
     <dialog id="{{ $model }}_add" class="modal modal-bottom sm:modal-middle">
