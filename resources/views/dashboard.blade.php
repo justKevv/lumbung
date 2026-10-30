@@ -18,44 +18,45 @@
             <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
         </x-card>
     </div>
-    <x-card>
-        <table class="table">
-            <!-- head -->
-            <thead>
-                <tr>
-                <th></th>
-                <th>Produk</th>
-                <th>Stok</th>
-                <th>Harga</th>
-                <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- row 1 -->
-                <tr>
-                <th>1</th>
-                <td>Beras 5 kg</td>
-                <td>42</td>
-                <td>Rp 75.000</td>
-                <td><div class="badge badge-outline badge-success">Tersedia</div></td>
-                </tr>
-
-                <tr>
-                <th>2</th>
-                <td>Beras 5 kg</td>
-                <td>42</td>
-                <td>Rp 75.000</td>
-                <td><div class="badge badge-outline badge-warning">Menipis</div></td>
-                </tr>
-
-                <tr>
-                <th>3</th>
-                <td>Beras 5 kg</td>
-                <td>42</td>
-                <td>Rp 75.000</td>
-                <td><div class="badge badge-outline badge-error">Habis</div></td>
-                </tr>
-            </tbody>
-        </table>
-    </x-card>
+    @can('manage-admin')
+        <x-resources-table
+            model="transaction"
+            :datas="$lowStocks"
+            datas_name="['product.name', 'total']"
+            :shows_action_button="false"
+            empty_text="Tidak ada stok menipis">
+                <x-slot:modal_add>
+                <div id="detail-rows" class="flex flex-col gap-2"></div>
+        
+                <button type="button" class="btn btn-sm" onclick="addDetailRow()">+ Tambah detail</button>
+        
+                <template id="detail-row-template">
+                    <div class="flex gap-2 detail-row">
+                        <select name="details[__INDEX__][product_id]" class="select" required>
+                            <option value="">Pilih produk</option>
+                            @foreach ($stocks as $stock)
+                                <option value="{{ $stock->product_id }}">
+                                    {{ $stock->product->name }} (stok: {{ $stock->total }})
+                                </option>
+                            @endforeach
+                        </select>
+                        <input type="number" name="details[__INDEX__][total]" min="1" class="input" placeholder="Jumlah" required>
+                        <button type="button" class="btn btn-ghost" onclick="this.closest('.detail-row').remove()">✕</button>
+                    </div>
+                </template>
+        
+                <script>
+                    let detailIndex = 0;
+        
+                    function addDetailRow() {
+                        const template = document.getElementById('detail-row-template').innerHTML;
+                        document.getElementById('detail-rows')
+                            .insertAdjacentHTML('beforeend', template.replaceAll('__INDEX__', detailIndex++));
+                    }
+        
+                    addDetailRow();
+                </script>
+            </x-slot:modal_add>
+        </x-resources-table>
+    @endcan
 </x-layouts.dashboard>
