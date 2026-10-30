@@ -22,7 +22,9 @@
         <x-resources-table
             model="transaction"
             :datas="$lowStocks"
-            datas_name="['product.name', 'total']"
+            :datas_name="['product.name', 'total']"
+            :badge="fn ($stock) => $stock->total < 10 ? ['text' => 'Kritis', 'class' => 'badge-error'] : ['text' => 'Menipis', 'class' => 'badge-warning']"
+            badge_name="Status"
             :shows_action_button="false"
             empty_text="Tidak ada stok menipis">
                 <x-slot:modal_add>

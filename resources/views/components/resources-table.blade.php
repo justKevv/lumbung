@@ -8,7 +8,9 @@
     'empty_text',
     'show_details_button' => false,
     'shows_add_button' => true,
-    'shows_action_button' => true
+    'shows_action_button' => true,
+    'badge' => null,
+    'badge_name' => 'Status',
 ])
 
 <x-card>
@@ -35,6 +37,9 @@
                     @foreach ($datas_name as $dn)
                         <th class="capitalize">{{ Str::replace(".", " ", $dn) }}</th>
                     @endforeach
+                    @if ($badge)
+                        <th class="capitalize">{{ $badge_name }}</th>
+                    @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -44,6 +49,11 @@
                             @foreach ($datas_name as $dn)
                                 <td>{{ data_get($data, $dn) ?? "-" }}</td>
                             @endforeach
+                            @if ($badge)
+                                <td>
+                                    <span class="badge {{ $badge($data)['class'] }}">{{ $badge($data)['text'] }}</span>
+                                </td>
+                            @endif
                             @if ($shows_action_button)
                                 <td>
                                     <button class="btn btn-ghost" popovertarget="popover-{{ $model }}-{{ $data->id }}" style="anchor-name:--anchor-{{ $model }}-{{ $data->id }}">

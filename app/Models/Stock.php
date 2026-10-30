@@ -25,7 +25,7 @@ class Stock extends Model
     }
 
     public function scopeLowStock(Builder $query): Builder {
-        return $query->whereRaw('1 = 0');
+        return $query->whereRaw('total < 20');
     }
 
     public function product(): BelongsTo {
