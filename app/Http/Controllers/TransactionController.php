@@ -17,9 +17,14 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::all();
+        $kopdesId = auth()->user()->admins()->value('kopdes_id');
+    
+        $transactions = Transaction::where('kopdes_id', $kopdesId)
+            ->with('details.product')
+            ->latest('date')
+            ->get();
         $fields = ['name', 'date'];
-        
+    
         return view('transaction', compact('transactions', 'fields'));
     }
 
