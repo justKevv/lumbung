@@ -40,7 +40,7 @@ class ProductFactory extends Factory
                 'Roti Tawar',
                 'Biskuit Kelapa',
             ]),
-            'price' => fake()->numberBetween(1000, 500000),
+            'price' => fake()->numberBetween(1000, 50000),
         ];
     }
 }
